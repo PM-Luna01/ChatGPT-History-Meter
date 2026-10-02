@@ -1,0 +1,64 @@
+name: Convert preview image
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  convert-preview:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Convert WebP preview to JPEG
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+
+          src = Path("docs/chatgpt-history-meter-preview.webp")
+          dst = Path("docs/chatgpt-history-meter-preview.jpg")
+          if not src.exists():
+              raise SystemExit(f"Missing {src}")
+
+          with Image.open(src) as im:
+              print("source:", im.format, im.size, im.mode)
+              im.convert("RGB").save(
+                  dst,
+                  "JPEG",
+                  quality=95,
+                  optimize=True,
+                  progressive=True,
+                  subsampling=0,
+              )
+          print("wrote:", dst, dst.stat().st_size, "bytes")
+
+          readme = Path("README.md")
+          text = readme.read_text(encoding="utf-8")
+          text = text.replace(
+              "docs/chatgpt-history-meter-preview.webp",
+              "docs/chatgpt-history-meter-preview.jpg",
+          )
+          readme.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Commit converted preview
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md docs/chatgpt-history-meter-preview.jpg
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "docs: render preview as JPEG for GitHub"
+          git push
