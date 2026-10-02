@@ -6,7 +6,7 @@ A lightweight Chromium browser extension that estimates the text size of the **a
 
 ## Preview
 
-![ChatGPT History Meter v1.5.0 preview](docs/chatgpt-history-meter-preview.jpg)
+![ChatGPT History Meter v1.5.0 preview](docs/chatgpt-history-meter-preview.webp)
 
 *ChatGPT History Meter v1.5.0 on Microsoft Edge — history estimate only; effective prompt usage remains unknown.*
 
