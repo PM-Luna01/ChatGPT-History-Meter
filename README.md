@@ -4,6 +4,12 @@ A lightweight Chromium browser extension that estimates the text size of the **a
 
 > **Important:** this is a **history meter**, not an authoritative context-window meter. ChatGPT may compact, summarize, retrieve, omit, or add context server-side. The extension cannot observe the effective prompt that is ultimately sent to the model.
 
+## Preview
+
+![ChatGPT History Meter v1.5.0 preview](docs/chatgpt-history-meter-preview.jpg)
+
+*ChatGPT History Meter v1.5.0 on Microsoft Edge — history estimate only; effective prompt usage remains unknown.*
+
 ## What it shows
 
 - Estimated text tokens in the active conversation branch.
