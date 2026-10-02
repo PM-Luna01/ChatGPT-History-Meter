@@ -25,7 +25,7 @@ jobs:
           from pathlib import Path
           from PIL import Image
 
-          src = Path("docs/chatgpt-history-meter-preview.webp")
+          src = Path("docs/chatgpt-history-meter-preview-v2.webp")
           dst = Path("docs/chatgpt-history-meter-preview.jpg")
           if not src.exists():
               raise SystemExit(f"Missing {src}")
@@ -45,7 +45,7 @@ jobs:
           readme = Path("README.md")
           text = readme.read_text(encoding="utf-8")
           text = text.replace(
-              "docs/chatgpt-history-meter-preview.webp",
+              "docs/chatgpt-history-meter-preview-v2.webp",
               "docs/chatgpt-history-meter-preview.jpg",
           )
           readme.write_text(text, encoding="utf-8")
